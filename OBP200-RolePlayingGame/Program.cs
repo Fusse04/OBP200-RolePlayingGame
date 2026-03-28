@@ -385,19 +385,7 @@ class Program
     
     
     // ======= Hjälpmetoder =======
-
-    static int ParseInt(string s, int fallback)
-    {
-        try
-        {
-            int value = Convert.ToInt32(s);
-            return value;
-        }
-        catch (Exception e)
-        {
-            return fallback;
-        }
-    }
+    
     public static Enemy GenerateEnemy(bool isBoss)
     {
         
