@@ -1,6 +1,6 @@
 ﻿namespace OBP200_RolePlayingGame;
 
-public class Enemy : Character
+public class Enemy : Character, IAttack
 {
     public string Type { get; private set; }
     public int XPReward { get; private set; }
@@ -31,7 +31,7 @@ public class Enemy : Character
         Hp = MaxHp;
     }
     
-    public int CalculateDamage(Random random, int playerDefense)
+    public int CalculateDamage(int playerDefense, Random random)
     {
         int roll = random.Next(0, 3);
         int dmg = Math.Max(1, Attack - (playerDefense / 2)) + roll;
