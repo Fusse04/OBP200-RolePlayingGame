@@ -42,10 +42,11 @@ public class Player : Character , IInventoryAdd
     private void MaybelevelUp()
     { 
         int nextThreshold = Level == 1 ? 10 : (Level == 2 ? 25 : (Level == 3 ? 45 : Level * 20));
-        if (XP >= nextThreshold)
+        if (XP <= nextThreshold)
         {
-            Level++;
+            return;
         }
+        Level++;
         switch (ClassType)
         {
             case "Warrior":
