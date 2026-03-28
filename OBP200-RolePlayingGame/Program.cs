@@ -102,20 +102,7 @@ class Program
         }
 
         player = new Player(name, hp, maxhp, atk, def, cls, gold, xp, lvl, potions);
-        /*
-        // Fyll player-array
-        Player[0] = name;
-        Player[1] = cls;
-        Player[2] = hp.ToString();
-        Player[3] = maxhp.ToString();
-        Player[4] = atk.ToString();
-        Player[5] = def.ToString();
-        Player[6] = gold.ToString();
-        Player[7] = "0";   // XP
-        Player[8] = "1";   // LEVEL
-        Player[9] = potions.ToString();
-        Player[10] = "Wooden Sword;Cloth Armor"; // inventory som semicolon-separerad sträng
-*/
+   
         // Initiera karta (linjärt äventyr)
         Rooms.Clear();
         Rooms.Add(new[] { "battle", "Skogsstig" });
@@ -264,14 +251,12 @@ class Program
             Console.WriteLine($"{enemy.Name} anfaller och gör {enemyDamage} skada!");
         }
 
-        if (player.IsAlive())
+        if (!player.IsAlive())
         {
             return false; // avsluta äventyr
         }
 
         // Vinstrapporter, XP, guld, loot
-
-
         player.AddXP(enemy.XPReward);
         player.AddGold(enemy.GoldReward);
 
