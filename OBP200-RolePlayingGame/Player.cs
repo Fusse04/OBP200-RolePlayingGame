@@ -1,11 +1,11 @@
 ﻿namespace OBP200_RolePlayingGame;
 
-public class Player : Character , IInventoryAdd
+public abstract class Player : Character , IInventoryAdd, IAttack
 {
     public string ClassType { get; private set; }
-    public int Gold { get; private set; }
+    public int Gold { get; protected set; }
     public int XP { get; private set; }
-    public int Level { get; private set; }
+    public int Level { get; protected set; }
     public int Potions { get; private set; }
     public List<string> Inventory { get; private set; } = new List<string>();
 
@@ -39,106 +39,18 @@ public class Player : Character , IInventoryAdd
         Gold += Math.Max(0, amount);
     }
 
-    private void MaybelevelUp()
+    public int NextLevelThreshold()
     { 
-        int nextThreshold = Level == 1 ? 10 : (Level == 2 ? 25 : (Level == 3 ? 45 : Level * 20));
-        if (XP <= nextThreshold)
-        {
-            return;
-        }
-        Level++;
-        switch (ClassType)
-        {
-            case "Warrior":
-                MaxHp += 6; Attack += 2; Defense += 2;
-                break;
-            case "Mage":
-                MaxHp += 4; Attack += 4; Defense += 1;
-                break;
-            case "Rogue":
-                MaxHp += 5; Attack += 3; Defense += 1;
-                break;
-            default:
-                MaxHp += 4; Attack += 3; Defense += 1;
-                break;
-        }
-        Hp = MaxHp; // full heal vid level up
-        Console.WriteLine($"Du når nivå {Level}! Värden ökade och HP återställd.");
+        return Level == 1 ? 10 : (Level == 2 ? 25 : (Level == 3 ? 45 : Level * 20));
     }
+
+    protected abstract void MaybelevelUp();
     
-     public int CalculatePlayerDamage(int enemyDefence , Random random)
-    {
 
+    public abstract int CalculateDamage(int enemyDefence, Random random);
 
-        // Beräkna grundskada
-        int baseDmg = Math.Max(1, Attack - (enemyDefence / 2));
-        int roll = random.Next(0, 3); // liten variation
-
-        switch (ClassType)
-        {
-            case "Warrior":
-                baseDmg += 1; // warrior buff
-                break;
-            case "Mage":
-                baseDmg += 2; // mage buff
-                break;
-            case "Rogue":
-                baseDmg += (random.NextDouble() < 0.2) ? 4 : 0; // rogue crit-chans
-                break;
-            default:
-                baseDmg += 0;
-                break;
-        }
-
-        return Math.Max(1, baseDmg + roll);
-    }
+    public abstract int UseClassSpecial(int enemyDefensive, bool vsBoss, Random random);
     
-    public int UseClassSpecial(int enemyDefensive, bool vsBoss, Random random)
-    {
-        int specialDmg = 0;
-        // Hantering av specialförmågor
-        switch (ClassType)
-        {
-            // Heavy Strike: hög skada men självskada
-            case "Warrior":
-                Console.WriteLine("Warrior använder Heavy Strike!");
-                specialDmg = Math.Max(2, Attack + 3 - enemyDefensive);
-                TakeDamage(2);
-                break;
-            // Fireball: stor skada, kostar guld
-            case "Mage":
-                if (Gold >= 3)
-                {
-                    Console.WriteLine("Mage kastar Fireball!");
-                    Gold -= 3;
-                    specialDmg = Math.Max(3, Attack + 5 - (enemyDefensive / 2));
-                }
-                else
-                {
-                    Console.WriteLine("Inte tillräckligt med guld för Fireball (kostar 3).");
-                }
-
-                break;
-            case "Rogue":
-                if (random.NextDouble() < 0.5)
-                {
-                    Console.WriteLine("Rogue utför en lyckad Backstab!");
-                    specialDmg = Math.Max(4, Attack + 6);
-                }
-                else
-                {
-                    Console.WriteLine("Backstab misslyckades!");
-                    specialDmg = 1;
-                }
-
-                break;
-
-        }
-
-        if (vsBoss)
-            specialDmg = (int)Math.Round(specialDmg * 0.8);
-        return Math.Max(0, specialDmg);
-    }
 
     public bool TryRunAway(Random random)
     {

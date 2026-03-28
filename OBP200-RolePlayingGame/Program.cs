@@ -85,23 +85,26 @@ class Program
         {
             case "1": // Warrior: tankig
                 cls = "Warrior";
-                maxhp = 40; hp = 40; atk = 7; def = 5; potions = 2; gold = 15;
+                maxhp = 40; hp = 40; atk = 7; def = 5; potions = 2; gold = 15; 
+                player = new Warrior(name, hp, maxhp, atk, def, cls, gold, xp, lvl, potions);
                 break;
             case "2": // Mage: hög damage, låg def
                 cls = "Mage";
                 maxhp = 28; hp = 28; atk = 10; def = 2; potions = 2; gold = 15;
+                player = new Mage(name, hp, maxhp, atk, def, cls, gold, xp, lvl, potions);
                 break;
             case "3": // Rogue: krit-chans
                 cls = "Rogue";
                 maxhp = 32; hp = 32; atk = 8; def = 3; potions = 3; gold = 20;
+                player = new Rogue(name, hp, maxhp, atk, def, cls, gold, xp, lvl, potions);
                 break;
             default:
                 cls = "Warrior";
                 maxhp = 40; hp = 40; atk = 7; def = 5; potions = 2; gold = 15;
+                player = new Warrior(name, hp, maxhp, atk, def, cls, gold, xp, lvl, potions);
                 break;
         }
 
-        player = new Player(name, hp, maxhp, atk, def, cls, gold, xp, lvl, potions);
    
         // Initiera karta (linjärt äventyr)
         Rooms.Clear();
@@ -208,7 +211,7 @@ class Program
 
             if (cmd == "A")
             {
-                int damage = player.CalculatePlayerDamage(enemy.Defense, Rng);
+                int damage = player.CalculateDamage(enemy.Defense, Rng);
                 enemy.TakeDamage(damage);
                 Console.WriteLine($"Du slog {enemy.Name} för {damage} skada.");
             }
@@ -246,7 +249,7 @@ class Program
             }
 
             // Fiendens tur
-            int enemyDamage = enemy.CalculateDamage(Rng, player.Defense);
+            int enemyDamage = enemy.CalculateDamage(player.Defense,Rng);
             player.TakeDamage(enemyDamage);
             Console.WriteLine($"{enemy.Name} anfaller och gör {enemyDamage} skada!");
         }
