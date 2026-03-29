@@ -46,7 +46,6 @@ public abstract class Player : Character , IInventoryAdd, IAttack
 
     protected abstract void MaybelevelUp();
     
-
     public abstract int CalculateDamage(int enemyDefence, Random random);
 
     public abstract int UseClassSpecial(int enemyDefensive, bool vsBoss, Random random);
