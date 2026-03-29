@@ -6,15 +6,13 @@ namespace OBP200_RolePlayingGame;
 class Program
 {
     // ======= Globalt tillstånd  =======
-
-  
     static Player player;
 
     // Rum: [type, label]
     // types: battle, treasure, shop, rest, boss
     static List<string[]> Rooms = new List<string[]>();
 
-    // Fiendemallar: [type, name, HP, ATK, DEF, XPReward, GoldReward]
+
     private static List<Enemy> EnemyTemplates = new List<Enemy>();
 
     // Status för kartan
