@@ -20,12 +20,7 @@ public class Enemy : Character, IAttack
     {
         Console.WriteLine($"En {Name} dyker upp! (HP {Hp}, ATK {Attack}, DEF {Defense})");
     }
-
-    public void TakeDamage(int damage)
-    {
-        Hp -= damage;
-    }
-
+    
     public void ResetHp()
     {
         Hp = MaxHp;
