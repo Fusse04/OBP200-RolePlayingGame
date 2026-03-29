@@ -48,7 +48,7 @@ public abstract class Player : Character , IInventoryAdd, IAttack
     
     public abstract int CalculateDamage(int enemyDefence, Random random);
 
-    public abstract int UseClassSpecial(int enemyDefensive, bool vsBoss, Random random);
+    public abstract int UseClassSpecial(int enemyDefens, bool vsBoss, Random random);
     
 
     public bool TryRunAway(Random random)

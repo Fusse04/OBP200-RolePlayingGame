@@ -17,14 +17,14 @@ public class Mage : Player
         return Math.Max(1, baseDmg + roll);
     }
 
-    public override int UseClassSpecial(int enemyDefensive, bool vsBoss, Random random)
+    public override int UseClassSpecial(int enemyDefens, bool vsBoss, Random random)
     {
         int specialDmg = 0;
         if (Gold >= 3)
         {
             Console.WriteLine("Mage kastar Fireball!");
             Gold -= 3;
-            specialDmg = Math.Max(3, Attack + 5 - (enemyDefensive / 2));
+            specialDmg = Math.Max(3, Attack + 5 - (enemyDefens / 2));
         }
         else
         {

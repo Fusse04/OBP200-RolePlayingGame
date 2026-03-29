@@ -16,7 +16,7 @@ public class Rogue : Player
         return Math.Max(1, baseDmg + roll);
     }
 
-    public override int UseClassSpecial(int targetDefense, bool vsBoss, Random random)
+    public override int UseClassSpecial(int enemyDefens, bool vsBoss, Random random)
     {
         int specialDmg;
         if (random.NextDouble() < 0.5)
